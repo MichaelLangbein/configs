@@ -30,8 +30,8 @@
     { "key": "ctrl+shift+p", "command": "cursorLineEndSelect", "when": "editorTextFocus" },
 
     // selectWidget control
-    { "key": "ctrl+k", "command": "selectPrevSuggestion", "when": "editorTextFocus && suggestWidgetVisible"},
-    { "key": "ctrl+l", "command": "selectNextSuggestion", "when": "editorTextFocus && suggestWidgetVisible"},
+    { "key": "ctrl+k", "command": "selectNextSuggestion", "when": "editorTextFocus && suggestWidgetVisible"},
+    { "key": "ctrl+l", "command": "selectPrevSuggestion", "when": "editorTextFocus && suggestWidgetVisible"},
 
     // duplicate cursor
     { "key": "ctrl+alt+k", "command": "editor.action.insertCursorBelow", "when": "editorTextFocus" },
