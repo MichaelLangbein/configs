@@ -91,13 +91,27 @@
 ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
 (setq lsp-keymap-prefix "s-l")
 
+;; lsp performance
+(setq gc-cons-threshold 100000000)
+(setq read-process-output-max (* 1024 1024)) ;; 1mb
+(setq lsp-completion-provider :capf)
+(setq lsp-idle-delay 0.500)
+;; @todo: (setq lsp-file-watch-ignored ...someregex...)
+
 (use-package lsp-mode
     :ensure t
     :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
            ;; (XXX-mode . lsp)
-	    (rjsx-mode . lsp) ;; npm i -g javascript-typescript-langserver
+	    (rjsx-mode . lsp)
             (lsp-mode . lsp-enable-which-key-integration))
+    :config
+    (setq lsp-clients-typescript-server "typescript-language-server"
+	  lsp-clients-typescript-server-args '("--stdio"))
     :commands lsp)
+
+;; lsp-mode for ts needs the following glal packages:
+;; npm install -g --save typescript typescript-language-server
+
 
 (use-package lsp-ui
   :ensure t
@@ -114,34 +128,9 @@
   :ensure t
   :config (which-key-mode))
 
-
-;; ;; flycheck checks syntax on the fly. supports a ton of languages. for js/ts, requires `npm install -g eslint` or `jshint`
-;; (use-package flycheck
-;;   :ensure t
-;;   :init
-;;   (global-flycheck-mode))
-
 (use-package rjsx-mode
   :ensure t
    :mode "\\.[jt]s\\'")
-
-;; ;; requires `npm install -g typescript`
-;; (defun setup-tide-mode ()
-;;   'setup function for tide'
-;;   (interactive)
-;;   (tide-setup)
-;;   (flycheck-mode +1)
-;;   (setq flycheck-check-syntax-automatically '(save mode-enabled))
-;;   (tide-hl-identifier-mode +1)  ;; highlights all occurrences of hovered variable
-;;   (company-mode +1))
-
-;; (use-package tide
-;;   :ensure t
-;;   :after (rjsx-mode company flycheck)
-;;   :hook
-;;   (rjsx-mode . setup-tide-mode)
-;;   (before-save-hook . tide-format-before-save)
-;;   (typescript-mode-hook . #'setup-tide-mode))
 
 ;; requires `npm install -g prettier`
 (use-package prettier-js
@@ -184,8 +173,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   (quote
-    (lsp-treemacs lsp-ui lsp-mode zenburn-theme xref-js2 which-key use-package treemacs tide tern spaceline smartparens rjsx-mode projectile prettier-js js2-refactor golden-ratio doom-themes doom-modeline dashboard company centaur-tabs))))
+   '(lsp-treemacs lsp-ui lsp-mode zenburn-theme xref-js2 which-key use-package treemacs tide tern spaceline smartparens rjsx-mode projectile prettier-js js2-refactor golden-ratio doom-themes doom-modeline dashboard company centaur-tabs)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
