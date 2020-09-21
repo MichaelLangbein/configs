@@ -17,14 +17,34 @@
   (package-install 'use-package))
 
 
+(defun npm-list (name)
+  (shell-command-to-string
+   (concat "npm list -g " name)))
+
+(defun npm-module-installed (name)
+  "checks if a given npm-module is globally installed"
+  (interactive)
+  (not (string-match-p "empty" (npm-list name))))
+
+(defun check-npm-requirements ()
+  (dolist (x '("prettier" "typescript-language-server"))
+    (if (not (npm-modle-installed x))
+	(message (concat "WARNING: npm-module not installed globally: " x)))))
+
 ;; ------------------------------------------------------
 ;; -------------------- 2. Packages ---------------------
 ;; ------------------------------------------------------
 
+;; making sure that prettier and lsp can find all those npm packages
+(use-package exec-path-from-shell
+  :ensure t
+  :config
+  (exec-path-from-shell-initialize))
+
 (use-package doom-themes
   :ensure t
   :config
-  (load-theme 'doom-material t)
+  (load-theme 'doom-nord-light t)
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
         doom-themes-enable-italic t) ; if nil, italics is universally disabled
   (doom-themes-visual-bell-config)
@@ -88,8 +108,6 @@
   (("C-c n" . mc/mark-next-like-this)
    ("C-c p" . mc/mark-previous-like-this)))
 
-;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
-(setq lsp-keymap-prefix "s-l")
 
 ;; lsp performance
 (setq gc-cons-threshold 100000000)
@@ -106,12 +124,13 @@
             (lsp-mode . lsp-enable-which-key-integration))
     :config
     (setq lsp-clients-typescript-server "typescript-language-server"
-	  lsp-clients-typescript-server-args '("--stdio"))
+	  lsp-clients-typescript-server-args '("--stdio")
+	  lsp-keymap-prefix "C-c l")
+    ;; (global-set-key (kbd "=") =)
     :commands lsp)
 
 ;; lsp-mode for ts needs the following glal packages:
-;; npm install -g --save typescript typescript-language-server
-
+;; npm install -g --save typescript typescript-language-serverx
 
 (use-package lsp-ui
   :ensure t
@@ -143,6 +162,8 @@
 ;; -------------------- 3. Others -----------------------
 ;; ------------------------------------------------------
 
+(set-face-attribute 'default nil :height 100)
+
 (tool-bar-mode -1)
 
 (scroll-bar-mode -1)
@@ -165,18 +186,4 @@
 ;; -------------------- 4. TODOs ------------------------
 ;; ------------------------------------------------------
 
-;; multicorsor (sugestion: mc)
 ;; spell-checking (sugestion: flyspell)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(lsp-treemacs lsp-ui lsp-mode zenburn-theme xref-js2 which-key use-package treemacs tide tern spaceline smartparens rjsx-mode projectile prettier-js js2-refactor golden-ratio doom-themes doom-modeline dashboard company centaur-tabs)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
