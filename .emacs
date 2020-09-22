@@ -17,6 +17,10 @@
   (package-install 'use-package))
 
 
+;; ------------------------------------------------------
+;; -------------------- 2. JS utils --------------------
+;; ------------------------------------------------------
+
 (defun npm-list (name)
   (shell-command-to-string
    (concat "npm list -g " name)))
@@ -31,8 +35,23 @@
     (if (not (npm-modle-installed x))
 	(message (concat "WARNING: npm-module not installed globally: " x)))))
 
+(defun create-new-ts-project (path name)
+  "creates a new ts-project and moves emacs-projectile into the dir"
+  (interactive "sPath to new project: \nsName of new project: ")
+  (progn
+    (shell-command (concat "cd " path
+                           " && mkdir " name " && cd " name
+                           " && git init"
+                           " && npm init -y"
+                           " && npm install --save-dev typescript jest ts-jest"
+                           " && mkdir src"
+                           " && touch src/index.ts"
+                           " && npx tsx --init"
+                           " && npx ts-jest config:init"))
+    (find-file (concat path "/" name "/src/index.ts"))))
+
 ;; ------------------------------------------------------
-;; -------------------- 2. Packages ---------------------
+;; -------------------- 3. Packages ---------------------
 ;; ------------------------------------------------------
 
 ;; making sure that prettier and lsp can find all those npm packages
@@ -64,7 +83,7 @@
 (use-package projectile
   :ensure t
   :config
-  (define-key projectile-mode-map (kbd "C-x p") 'projectile-command-map)
+  (define-key projectile-mode-map (kbd "C-x C-p") 'projectile-command-map)
   (projectile-mode +1))
 
 (use-package dashboard
@@ -75,7 +94,7 @@
     (setq dashboard-items '((recents . 5)
 			    (projects . 5)))
     (setq dashboard-set-file-icons t)
-    ;; (setq dashboard-startup-banner "")
+    (setq dashboard-startup-banner "~/banner.png") ;; 'logo)
     )
   :config
   (dashboard-setup-startup-hook))
@@ -105,8 +124,8 @@
 (use-package multiple-cursors
   :ensure t
   :bind
-  (("C-c n" . mc/mark-next-like-this)
-   ("C-c p" . mc/mark-previous-like-this)))
+  (("C-x n" . mc/mark-next-like-this)
+   ("C-x p" . mc/mark-previous-like-this)))
 
 
 ;; lsp performance
@@ -159,12 +178,14 @@
 
 
 ;; ------------------------------------------------------
-;; -------------------- 3. Others -----------------------
+;; -------------------- 4. Others -----------------------
 ;; ------------------------------------------------------
 
-(set-face-attribute 'default nil :height 100)
+(set-face-attribute 'default nil :height 109)
 
 (tool-bar-mode -1)
+
+(menu-bar-mode -1)
 
 (scroll-bar-mode -1)
 
@@ -183,7 +204,7 @@
 
 
 ;; ------------------------------------------------------
-;; -------------------- 4. TODOs ------------------------
+;; -------------------- 5. TODOs ------------------------
 ;; ------------------------------------------------------
 
 ;; spell-checking (sugestion: flyspell)
