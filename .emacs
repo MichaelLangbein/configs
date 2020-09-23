@@ -197,14 +197,28 @@
 
 (show-paren-mode 1)
 
-;; ido: a better file-explorer-bar. a popular alternative would be helm.
+;; ido: a better file-explorer-bar. a popular alternative would be helm, another ivy.
 (setq ido-everywhere t)
 (setq ido-enable-flex-matching t)
 (ido-mode t)
 
 
 ;; ------------------------------------------------------
-;; -------------------- 5. TODOs ------------------------
+;; -------------------- 5. Keybindings ------------------
+;; ------------------------------------------------------
+
+(global-set-key (kbd "C-x f") 'treemacs)
+
+(defun toggle-terminal ()
+  (interactive)
+  (if (eq major-mode 'shell-mode)
+      (delete-window)
+      (shell)))
+
+(global-set-key (kbd "C-x t") 'toggle-terminal)
+
+;; ------------------------------------------------------
+;; -------------------- 6. TODOs ------------------------
 ;; ------------------------------------------------------
 
 ;; spell-checking (sugestion: flyspell)
