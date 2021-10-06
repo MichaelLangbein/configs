@@ -1,10 +1,10 @@
 // Place your key bindings in this file to override the defaults
 [
     // remapping ctrl-shift-p
-    { "key": "ctrl+shift+oem_comma", "command": "workbench.action.showCommands" },
+    { "key": "ctrl+shift+[comma]", "command": "workbench.action.showCommands" },
 
     // move between pannels
-    { "key": "ctrl+alt+e", "command": "workbench.action.focusActiveEditorGroup", "when": "terminalFocus"},
+    { "key": "ctrl+alt+e", "command": "workbench.action.focusActiveEditorGroup"},
     { "key": "ctrl+alt+t", "command": "workbench.action.terminal.focus"},
     { "key": "ctrl+alt+f", "command": "workbench.files.action.focusFilesExplorer"},
     { "key": "ctrl+alt+s", "command": "workbench.view.search.focus"},
@@ -15,7 +15,7 @@
     { "key": "ctrl+i", "command": "cursorLeft", "when": "editorTextFocus" },
     { "key": "ctrl+o", "command": "cursorRight", "when": "editorTextFocus" },
     { "key": "ctrl+j", "command": "cursorWordLeft", "when": "editorTextFocus" },
-    { "key": "ctrl+oem_3", "command": "cursorWordRight", "when": "editorTextFocus" },
+    { "key": "ctrl+[semicolon]", "command": "cursorWordRight", "when": "editorTextFocus" },
     { "key" :"ctrl+p", "command": "cursorEnd", "when": "editorTextFocus" },
     { "key" :"ctrl+u", "command": "cursorLineStart", "when": "editorTextFocus" },
 
@@ -25,13 +25,17 @@
     { "key": "ctrl+shift+i", "command": "cursorLeftSelect", "when": "editorTextFocus" },
     { "key": "ctrl+shift+o", "command": "cursorRightSelect", "when": "editorTextFocus" },
     { "key": "ctrl+shift+j", "command": "cursorWordLeftSelect", "when": "editorTextFocus" },
-    { "key": "ctrl+shift+oem_3", "command": "cursorWordRightSelect", "when": "editorTextFocus" },
+    { "key": "ctrl+shift+[semicolon]", "command": "cursorWordRightSelect", "when": "editorTextFocus" },
     { "key": "ctrl+shift+u", "command": "cursorLineStartSelect", "when": "editorTextFocus" },
     { "key": "ctrl+shift+p", "command": "cursorLineEndSelect", "when": "editorTextFocus" },
 
     // selectWidget control
     { "key": "ctrl+k", "command": "selectNextSuggestion", "when": "editorTextFocus && suggestWidgetVisible"},
     { "key": "ctrl+l", "command": "selectPrevSuggestion", "when": "editorTextFocus && suggestWidgetVisible"},
+
+    // file-editor control
+    { "key": "ctrl+k", "command": "list.focusDown", "when": "filesExplorerFocus"},
+    { "key": "ctrl+l", "command": "list.focusUp", "when": "filesExplorerFocus"},
 
     // duplicate cursor
     { "key": "ctrl+alt+k", "command": "editor.action.insertCursorBelow", "when": "editorTextFocus" },
@@ -40,4 +44,8 @@
     // commenting
     { "key": "ctrl-m ctrl-c", "command": "editor.action.commentLine", "when": "editorTextFocus" },
     { "key": "ctrl+oem_3", "command": "-workbench.action.terminal.toggleTerminal" },
+
+    // misc
+    { "key": "ctrl+shift+z", "command": "workbench.action.toggleZenMode" },
+    { "key": "ctrl+shift+alt+f", "command": "editor.action.formatDocument" }
 ]
