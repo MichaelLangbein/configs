@@ -3,11 +3,24 @@
     // remapping ctrl-shift-p
     { "key": "ctrl+shift+[comma]", "command": "workbench.action.showCommands" },
 
-    // move between pannels
-    { "key": "ctrl+alt+e", "command": "workbench.action.focusActiveEditorGroup"},
-    { "key": "ctrl+alt+t", "command": "workbench.action.terminal.focus"},
-    { "key": "ctrl+alt+f", "command": "workbench.files.action.focusFilesExplorer"},
-    { "key": "ctrl+alt+s", "command": "workbench.view.search.focus"},
+    // apple-specifics
+    { "key": "ctrl+a", "command": "editor.action.selectAll" },
+    { "key": "ctrl+f", "command": "actions.find" },
+    { "key": "ctrl+d", "command": "editor.action.addSelectionToNextFindMatch" },
+    { "key": "ctrl+c", "command": "editor.action.clipboardCopyAction" },
+    { "key": "ctrl+v", "command": "editor.action.clipboardPasteAction" },
+    { "key": "alt+down", "command": "editor.action.moveLinesDownAction", "when": "editorTextFocus && !editorReadonly" },
+    { "key": "alt+up",   "command": "editor.action.moveLinesUpAction",   "when": "editorTextFocus && !editorReadonly" },
+    { "key": "cmd+w",    "command": "workbench.action.closeActiveEditor" },
+
+
+    // move between panels
+    { "key": "ctrl+cmd+e", "command": "workbench.action.focusActiveEditorGroup"},
+    { "key": "ctrl+cmd+t", "command": "workbench.action.terminal.focus"},
+    { "key": "ctrl+cmd+x", "command": "workbench.files.action.focusFilesExplorer"},
+    { "key": "ctrl+cmd+g", "command": "workbench.scm.focus"},
+    { "key": "ctrl+cmd+f", "command": "workbench.action.findInFiles" },
+    { "key": "ctrl+cmd+s", "command": "workbench.view.search.focus"},
 
     // move cursor
     { "key": "ctrl+k", "command": "cursorDown", "when": "editorTextFocus" },
@@ -38,8 +51,8 @@
     { "key": "ctrl+l", "command": "list.focusUp", "when": "filesExplorerFocus"},
 
     // duplicate cursor
-    { "key": "ctrl+alt+k", "command": "editor.action.insertCursorBelow", "when": "editorTextFocus" },
-    { "key": "ctrl+alt+l", "command": "editor.action.insertCursorAbove", "when": "editorTextFocus" },
+    { "key": "ctrl+cmd+k", "command": "editor.action.insertCursorBelow", "when": "editorTextFocus" },
+    { "key": "ctrl+cmd+l", "command": "editor.action.insertCursorAbove", "when": "editorTextFocus" },
 
     // commenting
     { "key": "ctrl-m ctrl-c", "command": "editor.action.commentLine", "when": "editorTextFocus" },
@@ -47,5 +60,11 @@
 
     // misc
     { "key": "ctrl+shift+z", "command": "workbench.action.toggleZenMode" },
-    { "key": "ctrl+shift+alt+f", "command": "editor.action.formatDocument" }
+    { "key": "ctrl+shift+alt+f", "command": "editor.action.formatDocument" },
+    { "key": "ctrl+s", "command": "saveAll" },
+    // { "key": "ctrl+w", "command": "workbench.action.closeWindow" }
+
+    // mac-specific
+    // move row up and down: option + arrow
+    // enter in file explorer opens file, not renames file. ... is space by default.
 ]
